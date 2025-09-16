@@ -37,7 +37,7 @@ print("\nScaled testing features (first 5 rows):")
 print(X_test_scaled[:5])
 # Model Implementation and Training
 
-# 1. Standard Linear Regression
+# STANDARD LINEAR REGRESSION
 lr_model = LinearRegression()
 lr_model.fit(X_train_scaled, y_train)
 
@@ -74,7 +74,7 @@ ridge_cv = RidgeCV(alphas=alphas, cv=5)
 ridge_cv.fit(X_train_scaled, y_train)
 print(f"Optimal Ridge alpha: {ridge_cv.alpha_:.4f}")
 
-# Analyze Coefficients
+# ANALYZE COEFFICIENTS 
 print("Linear Regression Coefficients:", lr_model.coef_)
 print("Lasso Coefficients:", lasso_cv.coef_)  # Using the model with the best alpha
 print("Ridge Coefficients:", ridge_cv.coef_)  # Using the model with the best alpha

@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 # Load Data
-df = pd.read_csv('Data_Train_HW2Problem1.csv')
+df = pd.read_csv('data_train_hw2_problem1.csv')
 
 # Initial Inspection
 print("First 5 rows:")

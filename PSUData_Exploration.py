@@ -1,6 +1,9 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression, Lasso, Ridge, LassoCV, RidgeCV
+from sklearn.metrics import mean_squared_error, r2_score
 
 # Load Data
 df = pd.read_csv('DataTrain_HW2Problem1.cvs')
@@ -30,3 +33,41 @@ print("\nScaled training features (first 5 rows):")
 print(X_train_scaled[:5])
 print("\nScaled testing features (first 5 rows):")
 print(X_test_scaled[:5])
+# Model Implementation and Training
+
+# 1. Standard Linear Regression
+lr_model = LinearRegression()
+lr_model.fit(X_train_scaled, y_train)
+
+# 2. Lasso Regression (L1)
+lasso_model = Lasso(alpha=0.1)  # Alpha value needs to be tuned
+lasso_model.fit(X_train_scaled, y_train)
+
+# 3. Ridge Regression (L2)
+ridge_model = Ridge(alpha=1.0)  # Alpha value needs to be tuned
+ridge_model.fit(X_train_scaled, y_train)
+
+# Model Evaluation
+# Predict on the test set
+y_pred_lr = lr_model.predict(X_test_scaled)
+y_pred_lasso = lasso_model.predict(X_test_scaled)
+y_pred_ridge = ridge_model.predict(X_test_scaled)
+
+# Calculate and print metrics
+print(f"\nLinear Regression R2: {r2_score(y_test, y_pred_lr):.4f}")
+print(f"Lasso R2: {r2_score(y_test, y_pred_lasso):.4f}")
+print(f"Ridge R2: {r2_score(y_test, y_pred_ridge):.4f}")
+
+# Hyperparameter Tuning
+# Define a range of alphas to test
+alphas = np.logspace(-4, 2, 100)
+
+# Use cross-validation to find the best alpha for Lasso
+lasso_cv = LassoCV(alphas=alphas, cv=5, random_state=42)
+lasso_cv.fit(X_train_scaled, y_train)
+print(f"Optimal Lasso alpha: {lasso_cv.alpha_:.4f}")
+
+# Use cross-validation to find the best alpha for Ridge
+ridge_cv = RidgeCV(alphas=alphas, cv=5)
+ridge_cv.fit(X_train_scaled, y_train)
+print(f"Optimal Ridge alpha: {ridge_cv.alpha_:.4f}")

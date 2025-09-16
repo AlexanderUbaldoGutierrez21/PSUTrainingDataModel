@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression, Lasso, Ridge, LassoCV, RidgeC
 from sklearn.metrics import mean_squared_error, r2_score
 
 # Load Data
-df = pd.read_csv('DataTrain_HW2Problem1.cvs')
+df = pd.read_csv('DataTrain_HW2Problem1.csv')
 
 # Initial Inspection
 print("First 5 rows:")
@@ -71,3 +71,8 @@ print(f"Optimal Lasso alpha: {lasso_cv.alpha_:.4f}")
 ridge_cv = RidgeCV(alphas=alphas, cv=5)
 ridge_cv.fit(X_train_scaled, y_train)
 print(f"Optimal Ridge alpha: {ridge_cv.alpha_:.4f}")
+
+# Analyze Coefficients
+print("Linear Regression Coefficients:", lr_model.coef_)
+print("Lasso Coefficients:", lasso_cv.coef_)  # Using the model with the best alpha
+print("Ridge Coefficients:", ridge_cv.coef_)  # Using the model with the best alpha

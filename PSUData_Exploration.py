@@ -122,3 +122,15 @@ for i, (model_name, y_pred) in enumerate([('Linear', y_pred_lr), ('Lasso', y_pre
     axes[i].set_title(f'{model_name} Regression: Actual vs Predicted')
 plt.tight_layout()
 plt.show()
+# Residual Plot for Linear Regression
+y_pred_train = lr_model.predict(X_train_scaled)
+residuals = y_train - y_pred_train
+
+plt.figure(figsize=(10, 6))
+plt.scatter(y_pred_train, residuals, alpha=0.7)
+plt.title('Residuals vs. Fitted Values')
+plt.xlabel('Fitted Values (ŷ)')
+plt.ylabel('Residuals (ε)')
+plt.axhline(y=0, color='r', linestyle='--')
+plt.grid(True)
+plt.show()
